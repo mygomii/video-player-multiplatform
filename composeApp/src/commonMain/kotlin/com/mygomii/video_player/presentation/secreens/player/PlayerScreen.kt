@@ -22,19 +22,27 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.mygomii.video_player.NavigationState
+import com.mygomii.video_player.data.model.VideoPlayerState
 import io.ktor.websocket.Frame
 
 @Composable
-fun VideoPlayerScreen(navigationState: NavigationState) {
-    val video = navigationState.selectedVideo
+fun VideoPlayerScreen(
+    playerState: VideoPlayerState,
+    onBack: () -> Unit
+) {
+    println("##### VideoPlayerScreen ${playerState.currentVideo}")
     Scaffold(
         topBar = {
             TopAppBar(
+                backgroundColor = Color.Black,
+                contentColor = Color.White,
                 title = { Frame.Text("비디오 플레이어") },
                 navigationIcon = {
-                    IconButton(onClick = { navigationState.navigateToList() }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "뒤로가기")
+                    IconButton(onClick = { onBack() }) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "뒤로가기"
+                        )
                     }
                 }
             )
@@ -46,31 +54,28 @@ fun VideoPlayerScreen(navigationState: NavigationState) {
                 .padding(padding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (video == null) {
-                Text("선택된 비디오가 없습니다.")
-            } else {
-                Box(
+            println("###### currentVideoUrl ${playerState.currentVideo}")
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.LightGray),
+                contentAlignment = Alignment.Center
+            ) {
+                VideoPlayer(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color.LightGray),
-                    contentAlignment = Alignment.Center
-                ) {
-                    VideoPlayer(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .height(340.dp),
-                        url = video.videoUrl,
-                        autoPlay = true,
-                        showControls = true,
-                    )
-                }
-                Text(
-                    text = video.title,
-                    style = MaterialTheme.typography.h3
+                        .fillMaxSize()
+                        .height(340.dp),
+                    url = playerState.currentVideo!!.videoUrl,
+                    autoPlay = true,
+                    showControls = true,
                 )
-                Spacer(modifier = Modifier.height(16.dp))
-
             }
+            Text(
+                text = playerState.currentVideo!!.title,
+                style = MaterialTheme.typography.h3
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
         }
     }
 }

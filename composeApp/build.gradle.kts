@@ -51,39 +51,12 @@ kotlin {
                 cssSupport {
                     enabled.set(true)
                 }
-
-//                devServer?.`open` = false
-//                devServer?.port = 3000
                 outputFileName = "composeApp.js"
             }
         }
         binaries.executable()
 
     }
-
-    /*js {
-        moduleName = "composeApp"
-        browser {
-            val rootDirPath = project.rootDir.path
-            val projectDirPath = project.projectDir.path
-            commonWebpackConfig {
-                cssSupport {
-                    enabled = true
-                }
-
-                outputFileName = "composeApp.js"
-                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
-                    static = (static ?: mutableListOf()).apply {
-                        // Serve sources to debug inside browser
-                        add(rootDirPath)
-                        add(projectDirPath)
-                    }
-                }
-            }
-        }
-        binaries.executable()
-    }*/
-
 
     sourceSets {
         val desktopMain by getting
@@ -178,14 +151,3 @@ tasks.withType<KotlinJsCompile>().configureEach {
         target = "es2015"
     }
 }
-
-//
-//tasks.named<JavaExec>("run") {
-//    jvmArgs("--add-modules", "javafx.controls,javafx.fxml")
-//}
-
-//compose.desktop {
-//    application {
-//        mainClass = "MainKt"
-//    }
-//}

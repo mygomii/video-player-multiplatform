@@ -1,4 +1,4 @@
-package com.mygomii.video_player.presentation.secreens.home
+package com.mygomii.video_player.presentation.secreens.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -29,12 +29,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.mygomii.video_player.NavigationState
 import com.mygomii.video_player.data.model.Video
 import kotlinx.coroutines.launch
 
 @Composable
-fun VideoListScreen(navigationState: NavigationState, videos: List<Video>) {
+fun VideoListScreen(videos: List<Video>, onclick: (Video) -> Unit = {}) {
     val scrollState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
 
@@ -50,29 +49,31 @@ fun VideoListScreen(navigationState: NavigationState, videos: List<Video>) {
                     }
                 }
             )
-
     ) {
         items(videos.size) { index ->
             Card(
                 modifier = Modifier
                     .fillMaxSize()
                     .clickable {
-                        navigationState.navigateToPlayer(videos[index])
+                        println("#### card click video ${videos[index]}")
+                        onclick(videos[index])
                     }
             ) {
                 VideoListItem(video = videos[index])
-                Spacer(modifier = Modifier.height(8.dp))
             }
+            Spacer(Modifier.padding(top = 2.dp))
 
         }
     }
 }
+
 
 @Composable
 fun VideoListItem(video: Video) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .background(Color.DarkGray)
             .padding(8.dp)
     ) {
         Box(
@@ -99,7 +100,7 @@ fun VideoListItem(video: Video) {
             Text(
                 text = video.videoUrl,
                 style = MaterialTheme.typography.body2,
-                color = Color.DarkGray
+                color = Color.LightGray
             )
         }
     }

@@ -1,5 +1,7 @@
 ### Compose Multiplatform 프로젝트 구조
 
+![Image](https://github.com/user-attachments/assets/ec0bb962-0dfd-421d-8069-6d5a58af543e)
+
 - composeApp 모듈은 다음과 같은 소스셋(Source Set)들로 구성되어 있음
 - androidMain
 - commonMain
@@ -78,3 +80,11 @@ mediaplayer-kmp = { module = "io.github.khubaibkhan4:mediaplayer-kmp", version.r
 현재 안되는 부분
 
 ⇒ 기본 플레이어 → 소형플레이어, 소형플레이어 → 기본플레이어로 바뀔때 다시 초기화되서 처음부터 봐야됨
+
+![Image](https://github.com/user-attachments/assets/dd453845-2769-458e-996a-96cea889264a)
+
+![Image](https://github.com/user-attachments/assets/87f4dc77-9fcf-4ba6-8cf4-b166b65a164a)
+
+![Image](https://github.com/user-attachments/assets/35e8d3f9-d7a2-4729-baf3-c846fc90f3a8)
+
+![Image](https://github.com/user-attachments/assets/5f3a8357-91d1-4a77-9730-a0fca01f27f9)
